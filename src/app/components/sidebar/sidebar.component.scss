@@ -1,9 +1,5 @@
 
-$base-color: rgb(29, 28, 28);
-$base-color-dark: rgb(24, 24, 24);
-$base-light: rgb(233, 233, 233);
-$success-color: rgb(67, 177, 67);
-$danger-color: rgb(216, 99, 99);
+@import 'variables';
 
 .sidenav {
     border-right: 1px solid $base-color;
@@ -26,4 +22,5 @@ $danger-color: rgb(216, 99, 99);
     font-size: 25px;
     color: $base-color-dark;
     display: block;
+    color: rgb(108, 117, 125);
   }

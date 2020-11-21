@@ -1,7 +1,15 @@
-$base-color-dark: rgb(24, 24, 24);
+@import 'variables';
 
 .navbar {
   width: 100%;
   background-color: $base-color-dark;
   height: 45px;
+}
+.navbar  a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 10px 14px;
+  text-decoration: none;
+  font-size: 24px;
 }

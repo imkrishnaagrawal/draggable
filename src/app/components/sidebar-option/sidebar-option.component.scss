@@ -1,15 +1,24 @@
-$base-color-dark: rgb(24, 24, 24);
+@import 'variables';
 
+.wrapper{
+  margin-top: 10px;
+}
 label {
     color: $base-color-dark;
-    margin-left: 16px;
-  }
+    margin-left: 18px;
+    font-size: 18px;
+    color: rgb(108, 117, 125);
+}
 
-input {
+  input[type=text] {
+    color: rgb(108, 117, 125);
     width: 200px;
-    height: 22px;
+    height: 18px;
     font-size: 15px;
     margin-left: 16px;
     margin-top: 5px;
-    border-radius: 1px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
   }

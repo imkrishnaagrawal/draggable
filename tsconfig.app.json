@@ -1,5 +1,6 @@
 {
   "extends": "./tsconfig.json",
+
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": []
@@ -10,5 +11,8 @@
   ],
   "include": [
     "src/**/*.d.ts"
-  ]
+  ],
+  "paths": {
+    "@services/*": ["./app/services/*"]
+  }
 }

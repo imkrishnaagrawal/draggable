@@ -1,15 +1,16 @@
-import { Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { DraggableRectangleComponent } from './components/draggable-rectangle/draggable-rectangle.component';
-import { DataService } from './services/data.service';
+import { Subscription } from 'rxjs';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
+import { DraggableRectangleComponent } from '@components/draggable-rectangle/draggable-rectangle.component';
+import { DataService } from '@services/data.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   //title
-  title = 'drawable';
+  title = 'Draggable';
 
   //options
   velocity = 10;
@@ -26,14 +27,19 @@ export class AppComponent implements OnInit {
   activeId = -1;
   isKeyboardEnabled = true;
   keyboardHandlerWrapper: any;
+  deleteHandlerWrapper: any;
+  private subscription: Subscription;
 
   @ViewChild('boxContainer', { read: ViewContainerRef }) boxContainer: ViewContainerRef;
   componentRef = [];
-  constructor(private window: Window, private dataService: DataService, private componentFactoryResolver: ComponentFactoryResolver) { }
-  ngOnInit() {
-    this.dataService.currentActiveId.subscribe((activeId: number) => this.activeId = activeId)
-    this.enableKeyListener();
 
+
+  constructor(private window: Window, private dataService: DataService, private componentFactoryResolver: ComponentFactoryResolver) { }
+
+  ngOnInit() {
+    this.subscription = new Subscription();
+    this.subscription.add(this.dataService.currentActiveId.subscribe((activeId: number) => this.activeId = activeId))
+    this.enableKeyListener();
   }
 
   resetActiveId(event: any) {
@@ -42,17 +48,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  @HostListener('document:keydown.delete', ['$event'])
-  onDeleteComponent() {
-    this.componentRef = this.componentRef.filter(componentRef => {
-      const component = <DraggableRectangleComponent>componentRef.instance;
-      if (component.Id == this.activeId) {
-        this.boxContainer.remove(this.boxContainer.indexOf(componentRef.hostView));
-      }
-      return component.Id !== this.activeId
-    });
-
-  }
   toggleKeyboardListener() {
     if (this.isKeyboardEnabled) {
       this.disableKeyListener();
@@ -64,11 +59,14 @@ export class AppComponent implements OnInit {
 
   disableKeyListener() {
     this.window.document.removeEventListener('keypress', this.keyboardHandlerWrapper);
+    this.window.document.removeEventListener('keydown', this.deleteHandlerWrapper);
   }
 
   enableKeyListener() {
     this.keyboardHandlerWrapper = this.handleKeyboardEvent.bind(this);
+    this.deleteHandlerWrapper = this.handleDeleteEvent.bind(this);
     this.window.document.addEventListener('keypress', this.keyboardHandlerWrapper);
+    this.window.document.addEventListener('keydown', this.deleteHandlerWrapper);
   }
 
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -92,6 +90,21 @@ export class AppComponent implements OnInit {
     }
   }
 
+  handleDeleteEvent(event: any) {
+    if (event.keyCode === 46) {
+
+      this.componentRef = this.componentRef.filter(componentRef => {
+        const component = <DraggableRectangleComponent>componentRef.instance;
+        if (component.Id === this.activeId) {
+          this.boxContainer.remove(this.boxContainer.indexOf(componentRef.hostView));
+        }
+        return component.Id !== this.activeId
+      });
+    }
+
+  }
+
+
   createRectangle() {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(DraggableRectangleComponent);
     const draggableComponentRef = this.boxContainer.createComponent(componentFactory);
@@ -102,5 +115,10 @@ export class AppComponent implements OnInit {
     draggableComponentRef.instance.Id = this.currentIndex;
     this.componentRef.push(draggableComponentRef);
     this.currentIndex += 1;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+    this.disableKeyListener()
   }
 }
