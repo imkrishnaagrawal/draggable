@@ -2,6 +2,7 @@
 
 .wrapper{
   margin-top: 10px;
+  z-index: 1;
 }
 label {
     color: $base-color-dark;
@@ -11,6 +12,7 @@ label {
 }
 
   input[type=text] {
+
     color: rgb(108, 117, 125);
     width: 200px;
     height: 18px;

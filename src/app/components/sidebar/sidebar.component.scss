@@ -1,31 +1,31 @@
-
-@import 'variables';
+@import "variables";
 
 .sidebar {
-    border-right: 1px solid rgb(165, 164, 164);
-    margin-top: 52px;
-    height: 100%;
-    width: 260px;
-    position: fixed;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    background-color: #f1f1f1;
-    overflow-x: hidden;
-    padding-top: 20px;
-  }
+  border-right: 1px solid rgb(165, 164, 164);
+  margin-top: 52px;
+  height: 100%;
+  width: 260px;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+  top: 0px;
+  position: fixed;
+  z-index: 1;
+}
 
-  .sidebar hr{
-    height:1px;
-    border-width:0;
-    color:gray;
-    background-color:gray;
-  }
+.sidebar hr {
+  height: 1px;
+  border-width: 0;
+  color: gray;
+  background-color: gray;
+}
 
-  .sidebar span {
-    padding: 0px 10px 6px 16px;
-    font-size: 25px;
-    color: $base-color-dark;
-    display: block;
-    color: rgb(108, 117, 125);
-  }
+.sidebar span {
+  padding: 0px 10px 6px 16px;
+  font-size: 25px;
+  color: $base-color-dark;
+  display: block;
+  color: rgb(108, 117, 125);
+}

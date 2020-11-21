@@ -1,5 +1,4 @@
-# Drawable
-
+# Drawable [DEMO](https://imkrishnaagrawal.github.io/draggable/drawable)
 ## Guide
 - User gets to see a button to add a new box in the window. On clicking the button, a box
 is created with a unique number ID. Boxes are of fixed width and height.
@@ -21,7 +20,7 @@ fence during movement
 - Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ![project screenshot](./screen_shot.PNG)
-
+[DEMO](https://imkrishnaagrawal.github.io/draggable/drawable)
 ## Build
 
 Run `ng build` to build the project.
