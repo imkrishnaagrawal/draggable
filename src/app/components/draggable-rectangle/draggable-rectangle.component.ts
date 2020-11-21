@@ -23,14 +23,14 @@ export class DraggableRectangleComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = new Subscription();
     this.subscription.add(this.dataService.currentActiveId.subscribe(activeId => this.activeId = activeId));
-    this.subscription.add(this.dataService.currentX.subscribe((x: number) => {
+    this.subscription.add(this.dataService.currentXs[this.Id].subscribe((x: number) => {
       if (this.activeId == this.Id) {
         if (this.isInsideFence(x, this.top)) {
           this.left = x
         }
       }
     }));
-    this.subscription.add(this.dataService.currentY.subscribe((y: number) => {
+    this.subscription.add(this.dataService.currentYs[this.Id].subscribe((y: number) => {
       if (this.activeId == this.Id) {
         if (this.isInsideFence(this.left, y)) {
           this.top = y

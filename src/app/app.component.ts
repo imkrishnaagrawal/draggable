@@ -1,5 +1,6 @@
+import { WINDOW } from './services/window.service';
 import { Subscription } from 'rxjs';
-import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef, OnDestroy, Inject } from '@angular/core';
 import { DraggableRectangleComponent } from '@components/draggable-rectangle/draggable-rectangle.component';
 import { DataService } from '@services/data.service';
 @Component({
@@ -34,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
   componentRef = [];
 
 
-  constructor(private window: Window, private dataService: DataService, private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(@Inject(WINDOW) private window: Window, private dataService: DataService, private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     this.subscription = new Subscription();
@@ -74,16 +75,16 @@ export class AppComponent implements OnInit, OnDestroy {
     switch (event.key.toLowerCase()) {
 
       case 'w':
-        this.dataService.updateY(this.velocity * -1)
+        this.dataService.updateY(this.velocity * -1, this.activeId)
         break;
       case 's':
-        this.dataService.updateY(this.velocity * 1)
+        this.dataService.updateY(this.velocity * 1, this.activeId)
         break;
       case 'a':
-        this.dataService.updateX(this.velocity * -1)
+        this.dataService.updateX(this.velocity * -1, this.activeId)
         break;
       case 'd':
-        this.dataService.updateX(this.velocity * 1)
+        this.dataService.updateX(this.velocity * 1, this.activeId)
         break;
       default:
         break;
@@ -114,6 +115,7 @@ export class AppComponent implements OnInit, OnDestroy {
     draggableComponentRef.instance.top = 100;
     draggableComponentRef.instance.Id = this.currentIndex;
     this.componentRef.push(draggableComponentRef);
+    this.dataService.createObservable(this.currentIndex);
     this.currentIndex += 1;
   }
 

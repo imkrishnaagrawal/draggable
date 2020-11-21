@@ -9,7 +9,7 @@ is created with a unique number ID. Boxes are of fixed width and height.
 - Use the ‘delete’ key on the keyboard to remove the selected box.
 - A button to toggle keyboard control.(*no listener should be open when this button status
 is off).
-- No NPM library is used to achieve this behaviour.
+- No NPM library is used to achieve this behavior.
 
 ## Bonus Features
 - Hardcoded custom rectangular fence and ensure all the boxes stay within the

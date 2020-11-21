@@ -1,3 +1,4 @@
+import { WINDOW_PROVIDERS } from './services/window.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -18,7 +19,7 @@ import { SidebarOptionComponent } from '@components/sidebar-option/sidebar-optio
     BrowserModule,
     FormsModule,
   ],
-  providers: [{ provide: Window, useValue: window }],
+  providers: [WINDOW_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
