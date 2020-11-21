@@ -1,0 +1,44 @@
+$base-color: rgb(29, 28, 28);
+$base-color-dark: rgb(24, 24, 24);
+$base-light: rgb(233, 233, 233);
+$success-color: rgb(67, 177, 67);
+$danger-color: rgb(216, 99, 99);
+
+.main-container {
+  transform: translateX(260px);
+  margin: 60px;
+
+}
+
+.canvas-container {
+  border: 1px solid $base-color;
+}
+
+.btn {
+  border: none;
+  color: white;
+  padding: 10px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.main-container .btn-dark {
+  background-color: $base-color;
+  /* Black */
+}
+
+.main-container .btn-success {
+  background-color: $success-color;
+  /*Green */
+}
+
+.main-container .btn-danger {
+  background-color: $danger-color;
+}
+
+

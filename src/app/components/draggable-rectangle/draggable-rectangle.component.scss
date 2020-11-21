@@ -1,0 +1,32 @@
+
+
+.draggable {
+  outline: 1px solid skyblue;
+  position: absolute;
+  transition: transform 10ms ease-in-out;
+  background-color: rgba(135, 207, 235, 0.37);
+  text-align: center;
+
+  &.active {
+    outline: 1px solid #80ff80;
+    background-color: #80ff805e;
+  }
+
+  &:hover {
+    cursor: all-scroll;
+  }
+
+  span:first-of-type {
+    position: absolute;
+    transform: translate3d(-100%, -100%, 0);
+  }
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

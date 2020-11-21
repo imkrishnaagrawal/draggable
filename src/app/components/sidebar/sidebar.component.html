@@ -1,0 +1,28 @@
+
+<div class="sidenav">
+    <a href="#about">Options</a>
+    <hr>
+    <br>
+
+    <app-sidebar-option
+      [label]="'Rectangle Height'"
+      [value]="rectangleHeight"
+      (change)="updateRectangleHeight($event)"
+      [inputType]="'text'">
+    </app-sidebar-option>
+
+    <app-sidebar-option
+      [label]="'Rectangle Width'"
+      [value]="rectangleWidth"
+      (change)="updateRectangleWidth($event)"
+      [inputType]="'text'">
+    </app-sidebar-option>
+
+    <app-sidebar-option
+      [label]="'Velocity'"
+      [value]="velocity"
+      (change)="updateVelocity($event)"
+      [inputType]="'text'">
+    </app-sidebar-option>
+
+  </div>
