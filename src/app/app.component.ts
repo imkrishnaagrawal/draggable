@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { DraggableRectangleComponent } from './components/draggable-rectangle/draggable-rectangle.component';
 import { DataService } from './services/data.service';
 @Component({
@@ -6,39 +6,39 @@ import { DataService } from './services/data.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit, OnInit {
+export class AppComponent implements OnInit {
 
   //title
   title = 'drawable';
 
   //options
   velocity = 10;
+  rectangleWidth = 300;
+  rectangleHeight = 150;
+
+  // container
   width = 700;
   height = 450;
 
   //rectangle
   currentIndex = 0;
-  rectangleWidth = 300;
-  rectangleHeight = 150;
 
   activeId = -1;
   isKeyboardEnabled = true;
   keyboardHandlerWrapper: any;
 
-  @ViewChild('dynamicInsert', { read: ViewContainerRef }) dynamicInsert: ViewContainerRef;
+  @ViewChild('boxContainer', { read: ViewContainerRef }) boxContainer: ViewContainerRef;
   componentRef = [];
   constructor(private window: Window, private dataService: DataService, private componentFactoryResolver: ComponentFactoryResolver) { }
   ngOnInit() {
-    this.dataService.currentMessage.subscribe((activeId: number) => this.activeId = activeId)
+    this.dataService.currentActiveId.subscribe((activeId: number) => this.activeId = activeId)
     this.enableKeyListener();
 
   }
-  ngAfterViewInit() {}
 
   resetActiveId(event: any) {
-
     if (event.target.id == 'container') {
-      this.dataService.changeMessage(-1);
+      this.dataService.setActiveId(-1);
     }
   }
 
@@ -46,17 +46,14 @@ export class AppComponent implements AfterViewInit, OnInit {
   onDeleteComponent() {
     this.componentRef = this.componentRef.filter(componentRef => {
       const component = <DraggableRectangleComponent>componentRef.instance;
-
       if (component.Id == this.activeId) {
-
-        this.dynamicInsert.remove(this.dynamicInsert.indexOf(componentRef.hostView));
-
+        this.boxContainer.remove(this.boxContainer.indexOf(componentRef.hostView));
       }
       return component.Id !== this.activeId
     });
 
   }
-  changeKeyboardListener() {
+  toggleKeyboardListener() {
     if (this.isKeyboardEnabled) {
       this.disableKeyListener();
     } else {
@@ -64,9 +61,11 @@ export class AppComponent implements AfterViewInit, OnInit {
     }
     this.isKeyboardEnabled = !this.isKeyboardEnabled;
   }
+
   disableKeyListener() {
     this.window.document.removeEventListener('keypress', this.keyboardHandlerWrapper);
   }
+
   enableKeyListener() {
     this.keyboardHandlerWrapper = this.handleKeyboardEvent.bind(this);
     this.window.document.addEventListener('keypress', this.keyboardHandlerWrapper);
@@ -95,15 +94,12 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   createRectangle() {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(DraggableRectangleComponent);
-    const draggableComponentRef = this.dynamicInsert.createComponent(componentFactory);
-    const draggableComponent = <DraggableRectangleComponent>draggableComponentRef.instance;
-    draggableComponent.parentHeight = this.height;
-    draggableComponent.parentWidth = this.width;
-    draggableComponent.height = this.rectangleHeight;
-    draggableComponent.width = this.rectangleWidth;
-    draggableComponent.left = 100;
-    draggableComponent.top = 100;
-    draggableComponent.Id = this.currentIndex;
+    const draggableComponentRef = this.boxContainer.createComponent(componentFactory);
+    draggableComponentRef.instance.height = this.rectangleHeight;
+    draggableComponentRef.instance.width = this.rectangleWidth;
+    draggableComponentRef.instance.left = 100;
+    draggableComponentRef.instance.top = 100;
+    draggableComponentRef.instance.Id = this.currentIndex;
     this.componentRef.push(draggableComponentRef);
     this.currentIndex += 1;
   }

@@ -13,14 +13,14 @@ export class DataService {
   private posY = new BehaviorSubject(100);
   currentY = this.posY.asObservable();
 
-  private messageSource = new BehaviorSubject(-1);
-  currentMessage = this.messageSource.asObservable();
+  private activeId = new BehaviorSubject(-1);
+  currentActiveId = this.activeId.asObservable();
 
   constructor() {
   }
 
-  changeMessage(message: number) {
-    this.messageSource.next(message)
+  setActiveId(message: number) {
+    this.activeId.next(message)
   }
   setX(x: number){
     this.posX.next(x);

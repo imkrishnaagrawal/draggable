@@ -1,13 +1,10 @@
-<div #box class="draggable unselectable"
+<div class="draggable unselectable"
     [style.width.px]="width"
     [style.height.px]="height"
     [style.line-height.px]="height"
     [style.transform]="'translate3d('+ left + 'px,' + top + 'px,' + '0px)'"
     [class.active]="activeId === Id"
     [style.z-index]="Id"
-    (mousedown)="updateStatus($event, 1)"
-    (window:mouseup)="updateStatus($event, 0)"
-    (click)="boxClick()"
->
+    (click)="boxClick()">
 {{Id}}
 </div>

@@ -9,10 +9,10 @@
 <div class="main-container">
   <button class="btn btn-dark" (click)="createRectangle()">Create Rectangle</button>
   <button class="btn" [ngClass]="isKeyboardEnabled ? 'btn-success' : 'btn-danger'"
-    (click)="changeKeyboardListener()"> {{isKeyboardEnabled ? 'Keyboard Enabled' : 'Keyboard Disabled' }}</button>
+    (click)="toggleKeyboardListener()"> {{isKeyboardEnabled ? 'Keyboard Enabled' : 'Keyboard Disabled' }}</button>
 
   <div id="container" (click)="resetActiveId($event)" [style.width.px]="width" [style.height.px]="height"
     class="canvas-container">
-    <ng-template #dynamicInsert> </ng-template>
+    <ng-template #boxContainer> </ng-template>
   </div>
 </div>
