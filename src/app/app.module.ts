@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DraggableRectangleComponent } from '@components/draggable-rectangle/draggable-rectangle.component';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +16,6 @@ import { SidebarOptionComponent } from '@components/sidebar-option/sidebar-optio
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
   ],
   providers: [{ provide: Window, useValue: window }],
