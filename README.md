@@ -1,6 +1,6 @@
 # Drawable
 
-## Expected outcome and steps involved:
+## Guide
 - User gets to see a button to add a new box in the window. On clicking the button, a box
 is created with a unique number ID. Boxes are of fixed width and height.
 - Higher id boxes will have a higher z-index.
