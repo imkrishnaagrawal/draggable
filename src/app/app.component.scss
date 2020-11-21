@@ -4,10 +4,19 @@
   transform: translateX(260px);
   margin: 60px;
 
+
 }
 
 .canvas-container {
-  border: 1px solid $base-color;
+  border: 1px solid #9b9b9b;
+  background-color: rgb(240, 238, 238);
+  border-radius: 4px;
+  background-image:
+  repeating-linear-gradient(#ccc 0 1px, transparent 1px 100%),
+  repeating-linear-gradient(90deg, #ccc 0 1px, transparent 1px 100%),
+  repeating-linear-gradient( rgb(223, 222, 222) 0 1px, transparent 1px 20%),
+  repeating-linear-gradient(90deg, rgb(223, 222, 222) 0 1px, transparent 1px 20%);
+  background-size: 30px 30px;
 }
 
 .btn {
@@ -24,13 +33,22 @@
 }
 
 .main-container .btn-dark {
-  background-color: $base-color;
+  background-color: $base-color-dark;
+
   /* Black */
 }
-
+.main-container .btn-primary {
+  background-color: rgb(17, 122, 139);
+  &:hover{
+    background-color: #138496;
+  }
+}
 .main-container .btn-success {
-  background-color: $success-color;
+  background-color: #28a745;
   /*Green */
+  &:hover{
+    background-color: #218838;
+  }
 }
 
 .main-container .btn-danger {

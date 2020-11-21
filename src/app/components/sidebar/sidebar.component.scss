@@ -1,24 +1,29 @@
 
 @import 'variables';
 
-.sidenav {
-    border-right: 1px solid $base-color;
-    ;
-    margin-top: 45px;
+.sidebar {
+    border-right: 1px solid rgb(165, 164, 164);
+    margin-top: 52px;
     height: 100%;
     width: 260px;
     position: fixed;
-    z-index: 1;
+    z-index: -1;
     top: 0;
     left: 0;
-    background-color: $base-light;
+    background-color: #f1f1f1;
     overflow-x: hidden;
     padding-top: 20px;
   }
 
-  .sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
+  .sidebar hr{
+    height:1px;
+    border-width:0;
+    color:gray;
+    background-color:gray;
+  }
+
+  .sidebar span {
+    padding: 0px 10px 6px 16px;
     font-size: 25px;
     color: $base-color-dark;
     display: block;

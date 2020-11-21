@@ -18,8 +18,8 @@ export class AppComponent implements OnInit, OnDestroy {
   rectangleHeight = 150;
 
   // container
-  width = 700;
-  height = 450;
+  width = 691;
+  height = 451;
 
   //rectangle
   currentIndex = 0;
