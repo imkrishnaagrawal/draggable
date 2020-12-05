@@ -1,8 +1,9 @@
 import { WINDOW } from './services/window.service';
 import { Subscription } from 'rxjs';
-import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef, OnDestroy, Inject } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef, OnDestroy, Inject, ElementRef } from '@angular/core';
 import { DraggableRectangleComponent } from '@components/draggable-rectangle/draggable-rectangle.component';
 import { DataService } from '@services/data.service';
+import { Renderer2 } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,8 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('boxContainer', { read: ViewContainerRef }) boxContainer: ViewContainerRef;
   componentRef = [];
 
-
-  constructor(@Inject(WINDOW) private window: Window, private dataService: DataService, private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(private renderer: Renderer2,private dataService: DataService, private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     this.subscription = new Subscription();
@@ -59,15 +59,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   disableKeyListener() {
-    this.window.document.removeEventListener('keypress', this.keyboardHandlerWrapper);
-    this.window.document.removeEventListener('keydown', this.deleteHandlerWrapper);
+    this.keyboardHandlerWrapper();
+    this.deleteHandlerWrapper();
   }
 
   enableKeyListener() {
-    this.keyboardHandlerWrapper = this.handleKeyboardEvent.bind(this);
-    this.deleteHandlerWrapper = this.handleDeleteEvent.bind(this);
-    this.window.document.addEventListener('keypress', this.keyboardHandlerWrapper);
-    this.window.document.addEventListener('keydown', this.deleteHandlerWrapper);
+    this.keyboardHandlerWrapper = this.renderer.listen('document', 'keypress', this.handleKeyboardEvent.bind(this))
+    this.deleteHandlerWrapper = this.renderer.listen('document', 'keydown', this.handleDeleteEvent.bind(this))
+
   }
 
   handleKeyboardEvent(event: KeyboardEvent) {
